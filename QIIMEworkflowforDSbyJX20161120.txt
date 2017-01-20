@@ -1,0 +1,59 @@
+﻿1. merge paired-ends reads:
+multiple_join_paired_ends.py -i reads -o output_folder 
+
+2. quality control:
+split_libraries_fastq.py -i DS1.fastq,DS8.fastq,DS13.fastq,DS19.fastq,DS22.fastq,DS11.fastq,DS20.fastq,DS12.fastq,DS9.fastq,DS21.fastq,DS14.fastq,DS16.fastq,DS2.fastq,DS5.fastq,DS7.fastq,DS17.fastq,DS10.fastq,DS6.fastq,DS15.fastq,DS3.fastq,DS4.fastq --sample_ids DS1,DS8,DS13,DS19,DS22,DS11,DS20,DS12,DS9,DS21,DS14,DS16,DS2,DS5,DS7,DS17,DS10,DS6,DS15,DS3,DS4 -o raw_fastq/ -m map.txt -q 19 --barcode_type 'not-barcoded' 
+
+3. split the fasta file into each sample:
+split_sequence_file_on_sample_ids.py -i seqs.fna -o fasta/
+
+4.chimera check
+chmod +x /home/qiime/Desktop/Shared_Folder/usearch8.1.1861_i86linux32; /home/qiime/Desktop/Shared_Folder/usearch8.1.1861_i86linux32 -uchime_ref fasta/DS1.fasta -db /home/qiime/Desktop/Shared_Folder/gold.fna -strand plus -nonchimeras good/DS1.fasta
+
+#"chmod +x" Execute permissions
+
+5. count reads (Alternative)
+cd good; count_seqs.py -i "*.fasta" -o count.txt
+
+6. cat samples
+cat good/*.fasta > readsresamp.fasta
+
+7. pick otu:
+pick_otus.py -i readsresamp.fasta -o uclust_picked_otus/
+
+8. representative OTU sequences
+pick_rep_set.py -i uclust_picked_otus/readsresamp_otus.txt -f readsresamp.fasta -o rep.fna
+
+9. assign_taxonomy:
+assign_taxonomy.py -i rep.fna -m rdp -o uclust_assigned_taxonomy -r /home/qiime/Desktop/Shared_Folder/gg_13_8_otus/rep_set/97_otus.fasta -t /home/qiime/Desktop/Shared_Folder/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt
+
+10. make_otu_table:
+make_otu_table.py -i uclust_picked_otus/readsresamp_otus.txt -t uclust_assigned_taxonomy/rep_tax_assignments.txt -o otu_table1.biom
+
+# remove singletons (Alternate step):
+filter_otus_from_otu_table.py -i otu_table1.biom -o otu_table2.biom -n 2
+
+#remove Unassigned
+filter_taxa_from_otu_table.py -i otu_table2.biom -n Unassigned -o otu_table.biom
+
+# convert to txt file with taxonomy:
+biom convert -i otu_table.biom -o OTUtable.from_biom_w_taxonomy.txt --header-key taxonomy --to-tsv
+
+
+11. make phylogenic tree
+# align_seqs
+align_seqs.py -i rep.fna -t /home/qiime/Desktop/Shared_Folder/core_set_aligned.fasta.imputed -o pynast_aligned/
+
+# filter alignment:
+filter_alignment.py -i pynast_aligned/rep_aligned.fasta -m /home/qiime/Desktop/Shared_Folder/lanemask_in_1s_and_0s -o filtered_alignment/
+ 
+# make phylogenic tree
+make_phylogeny.py -i filtered_alignment/rep_aligned_pfiltered.fasta -o rep_phylo.tre
+
+
+12. alpha diversity:
+echo "alpha_diversity:metrics shannon,PD_whole_tree,chao1,observed_species,gooDScoverage,simpson" > alpha_params.txt ; alpha_rarefaction.py -i assigned.biom -m map.txt -o div_alpha/ -p alpha_params.txt -t rep_phylo.tre
+
+13. beta diversity
+beta_diversity_through_plots.py -i assigned.biom -m map.txt -o div_beta_2351/ -t rep_phylo.tre -e 2000
+

@@ -1,0 +1,31 @@
+1. Dereplicates sequences using full-length matching.
+chmod +x /home/amax/Desktop/usearch8; /home/amax/Desktop/usearch8 -derep_fulllength readsresamp.fasta -fastaout derep.fasta -sizeout -minseqlength 64
+
+2. Abundance sort and discard singletons
+/home/amax/Desktop/usearch8 -sortbysize derep.fasta -fastaout sorted.fasta -minsize 2
+
+3. cluster_otus 
+/home/amax/Desktop/usearch8 -cluster_otus sorted.fasta -otus otus.fasta -uparseout results.txt -relabel OTU_ -sizein -sizeout
+
+4. Chimera filtering using reference database
+/home/amax/Desktop/usearch8 -uchime_ref otus.fasta -db /home/amax/Desktop/gold.fna -strand plus -nonchimeras good.fasta
+
+5. Map reads (including singletons) back to OTUs
+/home/amax/Desktop/usearch8 -usearch_global readsresamp.fasta -db good.fasta -strand plus -id 0.97 -uc readmap.uc \-maxaccepts 8 -maxrejects 64 -top_hit_only
+
+#add "barcodelabel=" transform "_" to ";"
+sed -i 's/A/barcodelabel=A/' filename
+
+6. Create OTU table
+python /home/amax/Desktop/drive5_py/uc2otutab.py readmap.uc > otu_table.txt
+
+7. Assign taxonomy to the OTUs
+/home/amax/Desktop/usearch8 -utax good.fasta -db /home/amax/Desktop/usearch_16s/rdp_16s.fa -strand both -taxconfs /home/amax/Desktop/usearch_16s/rdp_16s_short.tc -tt /home/amax/Desktop/usearch_16s/rdp_16s.tt -utaxout assign_taxon_results.txt
+
+8. merge otu table and assign taxonomy table 
+perl /home/amax/Desktop/taxon+OTU_2_taxonotutable/01-taxon+OTU_to_TaxonOTUtable.pl otu_table.txt assign_taxon_results.txt > taxon_otu_table.txt; perl /home/amax/Desktop/taxon+OTU_2_taxonotutable/02-combine_by_Taxon_name.pl taxon_otu_table.txt > taxon_otu_table.uniq.txt; perl /home/amax/Desktop/taxon+OTU_2_taxonotutable/03-uniq_combined_results.pl taxon_otu_table.uniq.txt > taxon_otu_table.uniq.uniq.txt
+                                                              
+
+
+
+
