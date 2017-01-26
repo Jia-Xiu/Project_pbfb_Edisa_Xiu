@@ -1,6 +1,4 @@
 # Project_pbfb_Edisa_Xiu
-Project for the course pratical bioinformatic for biologist from Edisa and Xiu
-
 # Pipeline to analyze 16S rDNA sequences combining USEARCH and QIIME and community diversity analysis using R. 
 
 ####################################################################################################################
@@ -25,12 +23,12 @@ sbatch script1.sh
 
 #!/bin/bash
 #SBATCH --job-name=project_EX
-#SBATCH --time=10:00:00
+#SBATCH --time=00:10:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=2G
-#SBATCH --partition=gpu
+#SBATCH --partition=short
 pwd
 
 # Size annotation and remove singletons
@@ -90,12 +88,12 @@ sbatch script2.sh
 
 #!/bin/bash
 #SBATCH --job-name=project_EX
-#SBATCH --time=10:00:00
+#SBATCH --time=00:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=2G
-#SBATCH --partition=gpu
+#SBATCH --partition=short
 
 module load QIIME/1.9.1-foss-2016a-Python-2.7.11-tmp
 module list
@@ -124,12 +122,13 @@ biom convert -i otu_table.biom -o OTUtable.from_biom_w_taxonomy.txt --header-key
 # The following steps run on R version 3.3.2 (2016-10-31) using RStudio interface
 # Install the libraries using Rpackages.R
 # Load the OTU table (OTUtable.from_biom_w_taxonomy.txt) to R and change the OTU table format using OTUtableformat.R
+# Change the header of OTUtable_nontaxon.txt using Header_mapping.csv in Microsoft Excel 2010
 
 ####################################################################################################################
 ##8
-# Calculate alpha diversity (Richness, shannon and simpson) and 
+# Using OTUtable_nontaxon.txt to calculate alpha diversity (Richness, shannon and simpson) and 
 # draw the bar plot (Richness.png, Shannon.png and Simpson.png) using alpha_diversity.R 
 
 ####################################################################################################################
 ##9
-# Calculate beta diversity (bray-curtis) and make a plot (NMDS.png) using NMDS.R
+# Using OTUtable_nontaxon.txt to calculate beta diversity (bray-curtis) and make a plot (NMDS.png) using NMDS.R
