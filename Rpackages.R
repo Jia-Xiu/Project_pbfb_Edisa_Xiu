@@ -1,0 +1,5 @@
+install.packages("vegan")
+install.packages("ggplot2")
+install.packages("RColorBrewer")
+install.packages("doBy")
+install.packages("reshape")
