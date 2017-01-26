@@ -121,22 +121,15 @@ biom convert -i otu_table.biom -o OTUtable.from_biom_w_taxonomy.txt --header-key
 ####################################################################################################################
 ##7
 # Analyze microbial community diversity 
-# The following steps run on R version 3.3.2 (2016-10-31)
+# The following steps run on R version 3.3.2 (2016-10-31) using RStudio interface
+# Install the libraries using Rpackages.R
 # Load the OTU table (OTUtable.from_biom_w_taxonomy.txt) to R and change the OTU table format using OTUtableformat.R
 
 ####################################################################################################################
 ##8
-# Calculate alpha diversity (Richness, shannon and simpson) and draw the bar plot using alpha_diversity.R 
+# Calculate alpha diversity (Richness, shannon and simpson) and 
+# draw the bar plot (Richness.png, Shannon.png and Simpson.png) using alpha_diversity.R 
 
 ####################################################################################################################
 ##9
-# Calculate beta diversity (bray-curtis) and make a plot using NMDS.R
-
-
-
-
-
-
-
-
-
+# Calculate beta diversity (bray-curtis) and make a plot (NMDS.png) using NMDS.R
