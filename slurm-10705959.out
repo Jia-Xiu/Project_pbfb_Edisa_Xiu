@@ -1,0 +1,73 @@
+/home/p278113/project/USEARCH94
+
+Currently Loaded Modules:
+  1) GCCcore/4.9.3
+  2) binutils/2.25-GCCcore-4.9.3
+  3) GCC/4.9.3-2.25
+  4) numactl/2.0.11-GCC-4.9.3-2.25
+  5) hwloc/1.11.2-GCC-4.9.3-2.25
+  6) OpenMPI/1.10.3-GCC-4.9.3-2.25
+  7) OpenBLAS/0.2.15-GCC-4.9.3-2.25-LAPACK-3.6.0
+  8) gompi/2016a
+  9) FFTW/3.3.4-gompi-2016a
+ 10) ScaLAPACK/2.0.2-gompi-2016a-OpenBLAS-0.2.15-LAPACK-3.6.0
+ 11) foss/2016a
+ 12) bzip2/1.0.6-foss-2016a
+ 13) zlib/1.2.8-foss-2016a
+ 14) libreadline/6.3-foss-2016a
+ 15) ncurses/6.0-foss-2016a
+ 16) Tcl/8.6.4-foss-2016a
+ 17) SQLite/3.9.2-foss-2016a
+ 18) Tk/8.6.4-foss-2016a-no-X11
+ 19) GMP/6.1.0-foss-2016a
+ 20) Python/2.7.11-foss-2016a
+ 21) freetype/2.6.2-foss-2016a
+ 22) libpng/1.6.21-foss-2016a
+ 23) matplotlib/1.5.1-foss-2016a-Python-2.7.11
+ 24) PyCogent/1.5.3-foss-2016a-Python-2.7.11
+ 25) OpenPGM/5.2.122-foss-2016a
+ 26) util-linux/2.27.1-foss-2016a
+ 27) libsodium/1.0.8-foss-2016a
+ 28) ZeroMQ/4.1.4-foss-2016a
+ 29) PyZMQ/15.2.0-foss-2016a-Python-2.7.11-zmq4
+ 30) IPython/3.2.3-foss-2016a-Python-2.7.11
+ 31) QIIME/1.9.1-foss-2016a-Python-2.7.11-tmp
+
+
+
+###############################################################################
+Peregrine Cluster
+Job 10705959 for user 'p278113'
+Finished at: Wed Jan 25 14:03:34 CET 2017
+
+Job details:
+============
+
+Name                : project_EX
+User                : p278113
+Partition           : gpu
+Nodes               : pg-gpu05
+Cores               : 12
+State               : COMPLETED
+Submit              : 2017-01-25T14:03:10
+Start               : 2017-01-25T14:03:11
+End                 : 2017-01-25T14:03:36
+Reserved walltime   : 00:30:00
+Used walltime       : 00:00:25
+Used CPU time       : 00:00:18 (efficiency:  6.17%)
+% User (Computation): 85.44%
+% System (I/O)      : 14.55%
+Mem reserved        : 2G/node
+Max Mem used        : 664.00K (pg-gpu05)
+Max Disk Write      : 0.00  (pg-gpu05)
+Max Disk Read       : 0.00  (pg-gpu05)
+
+
+Acknowledgements:
+=================
+
+Please see this page if you want to acknowledge Peregrine in your publications:
+
+https://redmine.hpc.rug.nl/redmine/projects/peregrine/wiki/ScientificOutput
+
+################################################################################
