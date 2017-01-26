@@ -1,7 +1,7 @@
 # Project_pbfb_Edisa_Xiu
 Project for the course pratical bioinformatic for biologist from Edisa and Xiu
 
-# PIPELINE TO ANALYZE 16S rDNA sequences combining USEARCH and QIIME and community diversity analysis using R. 
+# Pipeline to analyze 16S rDNA sequences combining USEARCH and QIIME and community diversity analysis using R. 
 
 ####################################################################################################################
 ##1
